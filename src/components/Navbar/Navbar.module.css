@@ -1,0 +1,16 @@
+
+.navbar {
+   padding: 3px 20px;
+}
+
+.navbar > header > nav {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+
+}
+
+nav > h3 {
+   color: #e8e8ed;
+   font-size: 25px;
+}
