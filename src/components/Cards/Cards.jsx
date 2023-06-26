@@ -8,7 +8,8 @@ export default function Cards(props) {
          {characters.map((c, i) => {
             return (
                <Card
-                  onClose={c.onClose}
+                  id={c.id}
+                  onClose={props.onClose}
                   name={c.name}
                   status={c.status}
                   species={c.species}
