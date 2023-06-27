@@ -4,7 +4,9 @@ import "./App.css";
 import Cards from "./components/Cards/Cards.jsx";
 // import SearchBar from "./components/SearchBar/SearchBar.jsx";
 import Navbar from "./components/Navbar/Navbar.jsx";
-// import characters from "./data.js";
+import { Routes, Route } from "react-router-dom";
+import About from "./components/About/About.jsx";
+import Detail from "./components/Detail/Detail";
 
 function App() {
    const [characters, setCharacters] = useState([]);
@@ -27,9 +29,13 @@ function App() {
    }
 
    return (
-      <div className="App">
+      <div>
          <Navbar onSearch={onSearch} />
-         <Cards characters={characters} onClose={onClose}/>
+         <Routes>
+            <Route path="/home" element={<Cards characters={characters} onClose={onClose} />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/detail/:id" element={<Detail />} />
+         </Routes>
       </div>
    );
 }

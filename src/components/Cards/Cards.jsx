@@ -5,6 +5,7 @@ export default function Cards(props) {
    const { characters } = props;
    return (
       <div className={styles.cardsContainer}>
+         <h2>Home</h2>
          {characters.map((c, i) => {
             return (
                <Card
