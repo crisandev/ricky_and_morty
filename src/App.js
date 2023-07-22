@@ -4,9 +4,10 @@ import "./App.css";
 import Cards from "./components/Cards/Cards.jsx";
 // import SearchBar from "./components/SearchBar/SearchBar.jsx";
 import Navbar from "./components/Navbar/Navbar.jsx";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import About from "./components/About/About.jsx";
 import Detail from "./components/Detail/Detail";
+import Form from "./components/Form/Form.jsx";
 
 function App() {
    const [characters, setCharacters] = useState([]);
@@ -30,8 +31,9 @@ function App() {
 
    return (
       <div>
-         <Navbar onSearch={onSearch} />
+         {useLocation().pathname !== "/" ? <Navbar onSearch={onSearch} /> : null}
          <Routes>
+            <Route path="/" element={<Form />} />
             <Route path="/home" element={<Cards characters={characters} onClose={onClose} />} />
             <Route path="/about" element={<About />} />
             <Route path="/detail/:id" element={<Detail />} />
