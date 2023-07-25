@@ -1,44 +1,61 @@
 import { useState } from "react";
-import { validationEmail, validationPassword } from "./validation";
+import { validation } from "./validation.js";
 
-export default function Form() {
-   let errorEmail = "";
-   let errorPass = "";
-
+export default function Form({login}) {
+   const [startValidating, setStartValidating] = useState(false);
    const [userData, setUserData] = useState({
       email: "",
       password: "",
    });
 
-   const [errors, setErrors] = useState({
-      email: "",
-      password: "",
-   });
+   const [errors, setErrors] = useState({});
 
    const handleChange = (e) => {
-      const { value } = e.target;
-      setUserData(value);
+      const { value, name } = e.target;
+      setUserData({ ...userData, [name]: value });
+      setErrors(validation({ ...userData, [name]: value }));
    };
 
+   
    const handleSubmit = (e) => {
       e.preventDefault();
-      setErrors({ ...errors, email: validationEmail(userData.email) });
-      setErrors({ ...errors, password: validationPassword(userData.password) });
-      errorEmail = errors.email.length > 0 ? <label>{errors.email}</label> : "";
-      errorPass = errors.password.length > 0 ? <label>{errors.password}</label> : "";
+      login(userData);
+      
+      // console.log(errors);
+      // console.log(!Boolean(Object.keys(errors).length));
+      // if (!Object.keys(errors).length) {
+      //    alert("Datos completos");
+      //    setUserData({
+      //       email: "",
+      //       password: "",
+      //    });
+      //    setErrors({
+      //       email: "",
+      //       password: "",
+      //    });
+      //    document.getElementById("form-login").submit();
+      // } else {
+      //    setStartValidating(true);
+      //    alert("Datos incompletos");
+      // }
    };
 
    return (
-      <form action="">
+      <form action="" id="form-login">
          <div>
             <label>Email</label>
-            <input type="email" value={userData.email} onChange={handleChange} />
-            {errorEmail}
+            <input type="email" name="email" value={userData.email} onChange={handleChange} />
+            {errors.email && <p>{errors.email}</p>}
          </div>
          <div>
             <label>Password</label>
-            <input type="password" value={userData.password} onChange={handleChange} />
-            {errorPass}
+            <input
+               type="password"
+               name="password"
+               value={userData.password}
+               onChange={handleChange}
+            />
+            {errors.password && <p>{errors.password}</p>}
          </div>
          <button type="submit" onClick={handleSubmit}>
             Submit
