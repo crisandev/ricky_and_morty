@@ -13,16 +13,21 @@ function App() {
    const navigate = useNavigate();
    const [characters, setCharacters] = useState([]);
    const [access, setAccess] = useState(false);
-   const EMAIL = "email@gmai.com";
-   const PASSWORD = "wfdgs43";
+   const EMAIL = "email@gmail.com";
+   const PASSWORD = "pass123";
    useEffect(() => {
       !access && navigate("/");
    }, [access]);
+
    function login({ email, password }) {
       if (EMAIL === email && PASSWORD === password) {
          setAccess(true);
          navigate("/home");
       }
+   }
+
+   function logout(){
+      setAccess(false);
    }
 
    function onSearch(id) {
@@ -44,7 +49,8 @@ function App() {
 
    return (
       <div>
-         {useLocation().pathname !== "/" ? <Navbar onSearch={onSearch} /> : null}
+         {useLocation().pathname !== "/" ? <Navbar onSearch={onSearch} logout={logout} /> : null}
+         {/* {useLocation().pathname !== "/" && <Navbar onSearch={onSearch} />} */}
          <Routes>
             <Route path="/" element={<Form login={login} />} />
             <Route path="/home" element={<Cards characters={characters} onClose={onClose} />} />

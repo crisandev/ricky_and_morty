@@ -2,7 +2,7 @@ import { useState } from "react";
 import { validation } from "./validation.js";
 
 export default function Form({login}) {
-   const [startValidating, setStartValidating] = useState(false);
+   // const [startValidating, setStartValidating] = useState(false);
    const [userData, setUserData] = useState({
       email: "",
       password: "",
